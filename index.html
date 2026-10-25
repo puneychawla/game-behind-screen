@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Game Behind the Screen — an attention workshop for students</title>
+<meta name="description" content="An interactive workshop for institutes that takes the blame off students and helps them understand what their phones are doing to their attention. Run by Puney Chawla in Bangalore and Delhi NCR.">
+<meta property="og:title" content="Not phone addiction. Phone habits, built by design.">
+<meta property="og:description" content="An interactive workshop on attention, phones and focus for students aged 14 to 20. 8 workshops and 300+ students so far.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23FCFCFA'/%3E%3Cpath d='M6 17c6-2 13-3 20-4' stroke='%23C8102E' stroke-width='3' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #FCFCFA;
+    --ink: #1E2B5E;
+    --ink-soft: #4B5683;
+    --pencil: #7D849C;
+    --rule: #DCE4F2;
+    --rule-strong: #C5D2EA;
+    --red: #C8102E;
+    --tape: rgba(236, 222, 168, 0.72);
+
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --hand: "Kalam", "Segoe Print", "Bradley Hand", cursive;
+
+    --margin-x: clamp(20px, 6vw, 96px);   /* where the red margin line sits */
+    --gap-after-line: clamp(20px, 3.5vw, 56px);
+    --measure: 36rem;
+    --line: 2.25rem;                        /* ruled-line spacing */
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 0.98rem + 0.3vw, 1.1875rem);
+    font-variation-settings: "opsz" 16;
+    line-height: 1.62;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The red margin line that runs down the whole page, like an exercise book. */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; bottom: 0;
+    left: var(--margin-x);
+    width: 1.5px;
+    background: var(--red);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  .wrap {
+    padding-left: calc(var(--margin-x) + var(--gap-after-line));
+    padding-right: clamp(20px, 6vw, 96px);
+    max-width: 1320px;
+  }
+
+  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+  a:hover { text-decoration-color: var(--red); }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+
+  .skip {
+    position: absolute; left: -999px; top: 8px;
+    background: var(--ink); color: var(--paper); padding: 8px 14px; z-index: 10;
+  }
+  .skip:focus { left: 12px; }
+
+  /* ---------- Navigation ---------- */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding-top: 22px; padding-bottom: 22px;
+    position: relative; z-index: 2;
+  }
+  .wordmark {
+    font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em;
+    text-decoration: none; font-variation-settings: "opsz" 24;
+  }
+  .wordmark em { font-weight: 400; }
+  .nav ul { display: flex; gap: clamp(14px, 2vw, 30px); list-style: none; margin: 0; padding: 0; align-items: center; }
+  .nav li a { text-decoration: none; font-size: 0.98rem; color: var(--ink-soft); }
+  .nav li a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); }
+  .nav .nav-cta a {
+    color: var(--paper); background: var(--ink); padding: 8px 16px; border-radius: 6px;
+  }
+  .nav .nav-cta a:hover { background: #16204A; color: var(--paper); text-decoration: none; }
+  .nav .nav-cta a { white-space: nowrap; }
+  @media (max-width: 860px) { .nav li:not(.nav-cta) { display: none; } }
+  @media (max-width: 480px) {
+    .wordmark { font-size: 0.95rem; }
+    .nav .nav-cta a { padding: 7px 12px; font-size: 0.92rem; }
+  }
+
+  /* ---------- Hero: ruled paper ---------- */
+  .hero {
+    position: relative;
+    padding-top: clamp(56px, 9vw, 120px);
+    padding-bottom: clamp(72px, 10vw, 140px);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--line) - 1px),
+      var(--rule) calc(var(--line) - 1px),
+      var(--rule) var(--line)
+    );
+    background-position: 0 14px;
+  }
+  .hero h1 {
+    margin: 0;
+    font-weight: 500;
+    font-size: clamp(3.4rem, 1.6rem + 8.2vw, 9.25rem);
+    font-variation-settings: "opsz" 72;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    padding-top: 0.7em; /* room for the correction written above */
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    column-gap: 0.24em; row-gap: 0.62em; /* if the headline wraps, the correction still has room */
+  }
+  .hero h1 .word { display: inline-block; white-space: nowrap; }
+  .struck { position: relative; display: inline-block; }
+  .struck del { text-decoration: none; color: var(--ink); }
+  .struck .pen-line {
+    position: absolute; left: -3%; width: 106%; top: 44%; height: 0.32em;
+    overflow: visible; pointer-events: none;
+  }
+  .struck .pen-line path {
+    fill: none; stroke: var(--red); stroke-width: 7; stroke-linecap: round;
+    stroke-dasharray: 1000; stroke-dashoffset: 1000;
+    vector-effect: non-scaling-stroke;
+  }
+  .struck ins {
+    position: absolute; left: 4%; bottom: 92%;
+    text-decoration: none; white-space: nowrap;
+    font-family: var(--hand); font-weight: 700; color: var(--red);
+    font-size: clamp(1.35rem, 0.8rem + 2.4vw, 2.7rem);
+    letter-spacing: 0; line-height: 1;
+    transform: rotate(-3deg); transform-origin: left bottom;
+    clip-path: inset(0 100% 0 0);
+  }
+  .struck ins .caret {
+    position: absolute; left: -0.55em; top: 1.05em; font-weight: 400; font-size: 1.1em;
+  }
+  .is-drawn .struck .pen-line path { animation: draw 0.7s cubic-bezier(.6,.05,.3,1) 0.45s forwards; }
+  .is-drawn .struck ins { animation: write 1.1s steps(28, end) 1.25s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes write { to { clip-path: inset(0 -2% 0 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .struck .pen-line path { stroke-dashoffset: 0; animation: none !important; }
+    .struck ins { clip-path: none; animation: none !important; }
+  }
+
+  .hero .lede {
+    max-width: var(--measure);
+    margin: clamp(28px, 4vw, 44px) 0 0;
+    font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
+    line-height: 1.55;
+    font-variation-settings: "opsz" 20;
+  }
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; margin-top: 34px; }
+  .btn {
+    display: inline-block; font: inherit; font-size: 1.02rem; font-weight: 500;
+    background: var(--ink); color: var(--paper); text-decoration: none;
+    padding: 13px 22px; border-radius: 6px; border: 0; cursor: pointer;
+  }
+  .btn:hover { background: #16204A; }
+  .text-link { font-size: 1.02rem; }
+  .hero .for-line { margin-top: 30px; color: var(--pencil); font-size: 0.98rem; max-width: var(--measure); }
+
+  /* ---------- Shared section rhythm ---------- */
+  section { padding-top: clamp(72px, 9vw, 128px); padding-bottom: 8px; }
+  h2 {
+    font-weight: 500;
+    font-size: clamp(2rem, 1.3rem + 2.8vw, 3.35rem);
+    font-variation-settings: "opsz" 60;
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    margin: 0 0 22px;
+    max-width: 22ch;
+  }
+  h3 {
+    font-weight: 600; font-size: 1.28rem; font-variation-settings: "opsz" 24;
+    line-height: 1.25; margin: 0 0 8px; letter-spacing: -0.005em;
+  }
+  .intro { max-width: var(--measure); margin: 0; color: var(--ink); }
+  .intro + .intro { margin-top: 14px; }
+  .note { color: var(--pencil); font-size: 0.92rem; }
+
+  /* ---------- Reframes: complaint, red-pen correction, explanation ---------- */
+  .reframes { margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--rule-strong); }
+  .reframe {
+    display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 18px clamp(28px, 5vw, 80px);
+    padding: clamp(30px, 4vw, 48px) 0;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+  .complaint {
+    margin: 0; font-style: italic; font-weight: 400;
+    font-size: clamp(1.45rem, 1.1rem + 1.3vw, 2.05rem);
+    font-variation-settings: "opsz" 48;
+    line-height: 1.18; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .complaint::before { content: "“"; } .complaint::after { content: "”"; }
+  .correction {
+    display: block; margin-top: 14px;
+    font-family: var(--hand); color: var(--red); font-weight: 700;
+    font-size: clamp(1.15rem, 1rem + 0.55vw, 1.45rem); line-height: 1.25;
+    transform: rotate(-1.5deg); transform-origin: left;
+  }
+  .reframe .why p { margin: 0; max-width: 34rem; }
+  .reframe .why p + p { margin-top: 12px; }
+  @media (max-width: 760px) { .reframe { grid-template-columns: 1fr; } }
+  .sources { margin-top: 22px; max-width: 46rem; }
+
+  /* ---------- Workshop steps ---------- */
+  .steps { list-style: none; margin: clamp(40px, 5vw, 60px) 0 0; padding: 0; counter-reset: step; }
+  .steps > li {
+    counter-increment: step;
+    display: grid; grid-template-columns: 4.2rem minmax(0, 1fr);
+    gap: 4px 18px; padding: 26px 0 28px;
+    border-top: 1px solid var(--rule-strong);
+    max-width: 52rem;
+  }
+  .steps > li:last-child { border-bottom: 1px solid var(--rule-strong); }
+  .steps > li::before {
+    content: counter(step);
+    font-style: italic; font-weight: 300;
+    font-size: 3rem; line-height: 0.9; font-variation-settings: "opsz" 72;
+    color: var(--ink-soft);
+  }
+  .steps p { margin: 0; max-width: 38rem; }
+
+  /* The urge chips inside step 4 */
+  .urges { margin-top: 18px; }
+  .urge-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .urge-list button {
+    font: inherit; font-size: 0.96rem; color: var(--ink);
+    background: transparent; border: 1px solid var(--rule-strong);
+    border-radius: 999px; padding: 5px 14px; cursor: pointer;
+  }
+  .urge-list button:hover { border-color: var(--ink-soft); }
+  .urge-list button[aria-pressed="true"] { border-color: var(--red); color: var(--red); background: #fff; }
+  .urge-detail {
+    margin-top: 12px; min-height: 2.6em; max-width: 34rem;
+    font-family: var(--hand); color: var(--red); font-size: 1.15rem; line-height: 1.35;
+  }
+  .urge-hint { color: var(--pencil); font-size: 0.92rem; margin-top: 6px; }
+
+  .principles {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px clamp(28px, 5vw, 72px);
+    margin: clamp(48px, 6vw, 72px) 0 0; max-width: 60rem;
+  }
+  .principles div { padding-left: 16px; border-left: 2px solid var(--rule-strong); }
+  .principles dt { font-weight: 600; font-variation-settings: "opsz" 24; }
+  .principles dd { margin: 4px 0 0; color: var(--ink-soft); }
+  @media (max-width: 640px) { .principles { grid-template-columns: 1fr; } }
+  .format { margin-top: 34px; max-width: var(--measure); color: var(--ink-soft); }
+
+  /* ---------- Who it's for ---------- */
+  .audiences {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px clamp(32px, 6vw, 96px); margin-top: clamp(32px, 4vw, 48px); max-width: 62rem;
+  }
+  .audiences p { margin: 0; }
+  .audiences .who {
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem); font-weight: 500;
+    font-variation-settings: "opsz" 40; line-height: 1.2; letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 700px) { .audiences { grid-template-columns: 1fr; } }
+  .also { margin-top: 36px; max-width: var(--measure); color: var(--ink-soft); }
+
+  .tally {
+    margin: 0 0 18px; max-width: 30ch;
+    font-size: clamp(1.6rem, 1.15rem + 1.7vw, 2.4rem); font-weight: 400;
+    font-variation-settings: "opsz" 48; line-height: 1.18; letter-spacing: -0.015em;
+    font-variant-numeric: lining-nums;
+  }
+
+  /* ---------- Past workshops: photos taped into the notebook ---------- */
+  .gallery {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(36px, 5vw, 60px) clamp(24px, 4vw, 56px);
+    margin: clamp(44px, 5vw, 64px) 0 0; padding: 0; list-style: none; max-width: 60rem;
+  }
+  .photo { margin: 0; position: relative; }
+  .photo .frame {
+    position: relative; background: #fff; padding: 10px 10px 12px;
+    box-shadow: 0 1px 0 rgba(30,43,94,.08), 0 10px 24px -14px rgba(30,43,94,.35);
+  }
+  .gallery li:nth-child(4n+1) .frame { transform: rotate(-1.3deg); }
+  .gallery li:nth-child(4n+2) .frame { transform: rotate(0.9deg); }
+  .gallery li:nth-child(4n+3) .frame { transform: rotate(0.6deg); }
+  .gallery li:nth-child(4n)   .frame { transform: rotate(-0.8deg); }
+  .photo .frame::before {
+    content: ""; position: absolute; top: -11px; left: 50%; width: 84px; height: 24px;
+    transform: translateX(-50%) rotate(-3deg); background: var(--tape);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+  .photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  /* The ruled placeholder sits on top of the photo until the photo has actually loaded. */
+  .photo .missing {
+    position: absolute; top: 10px; left: 10px; right: 10px; bottom: 12px;
+    display: flex; background:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 27px, var(--rule) 27px, var(--rule) 28px), #F6F8FC;
+    align-items: center; justify-content: center; text-align: center; padding: 16px;
+    font-family: var(--hand); color: var(--pencil); font-size: 1.05rem;
+  }
+  .photo.has-photo .missing { display: none; }
+  .photo figcaption { margin-top: 14px; font-size: 0.95rem; line-height: 1.4; color: var(--ink-soft); max-width: 24rem; }
+  .photo figcaption strong { display: block; color: var(--ink); font-weight: 600; }
+  @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
+
+  /* ---------- Testimonials (hidden until you add some) ---------- */
+  .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px clamp(32px, 6vw, 96px); margin-top: 40px; max-width: 62rem; }
+  .quotes blockquote { margin: 0; }
+  .quotes blockquote p { margin: 0; font-style: italic; font-size: 1.3rem; line-height: 1.4; font-variation-settings: "opsz" 36; }
+  .quotes footer { margin-top: 10px; color: var(--pencil); font-size: 0.95rem; }
+  @media (max-width: 700px) { .quotes { grid-template-columns: 1fr; } }
+
+  /* ---------- About ---------- */
+  .about {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 24px clamp(32px, 6vw, 96px); margin-top: 12px; max-width: 70rem;
+  }
+  .about p { margin: 0; }
+  .about-name .name {
+    font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem); font-weight: 500;
+    font-variation-settings: "opsz" 48; letter-spacing: -0.015em; line-height: 1.1;
+  }
+  .about-name .cred { color: var(--ink-soft); margin-top: 6px; }
+  .about-name p:last-child { margin-top: 14px; }
+  .about-text p { max-width: 36rem; }
+  .about-text p + p { margin-top: 14px; }
+  @media (max-width: 760px) { .about { grid-template-columns: 1fr; } }
+
+  /* ---------- Contact: the Google Form, on a sheet of paper ---------- */
+  .contact-grid {
+    display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 32px clamp(32px, 6vw, 96px); margin-top: 12px; max-width: 70rem; align-items: start;
+  }
+  @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-aside p { margin: 0 0 14px; max-width: 26rem; }
+  .email-line a { font-weight: 500; }
+  .form-sheet {
+    background: #fff; border: 1px solid var(--rule-strong); border-radius: 4px;
+    box-shadow: 0 10px 28px -18px rgba(30,43,94,.35);
+    overflow: hidden;
+  }
+  .form-sheet iframe { display: block; width: 100%; height: 1150px; border: 0; }
+  @media (max-width: 560px) { .form-sheet iframe { height: 1300px; } }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    margin-top: clamp(88px, 10vw, 140px);
+    border-top: 1px solid var(--rule-strong);
+  }
+  .footer-inner {
+    padding-top: 28px; padding-bottom: 40px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px 40px; align-items: baseline;
+  }
+  .footer p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; max-width: 34rem; }
+  .signoff { font-family: var(--hand); color: var(--red); font-size: 1.5rem; font-weight: 700; transform: rotate(-2deg); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="page">
+
+  <header class="wrap nav">
+    <a class="wordmark" href="#top">The Game <em>Behind the</em> Screen</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#misunderstood">Why it’s misunderstood</a></li>
+        <li><a href="#workshop">The workshop</a></li>
+        <li><a href="#who">Who it’s for</a></li>
+        <li><a href="#past">Past workshops</a></li>
+        <li><a href="#about">About</a></li>
+        <li class="nav-cta"><a href="#contact">Get in touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <div class="hero" id="top">
+      <div class="wrap">
+        <h1 aria-label="Not phone addiction. Phone habits, built by design.">
+          <span class="word" aria-hidden="true">Phone</span>
+          <span class="struck" aria-hidden="true">
+            <del>addiction</del>
+            <svg class="pen-line" viewBox="0 0 400 30" preserveAspectRatio="none" focusable="false">
+              <path d="M4 20 C 70 12, 130 17, 200 13 S 330 9, 396 12"/>
+            </svg>
+            <ins>habits, built by design</ins>
+          </span>
+        </h1>
+
+        <p class="lede">When students can’t put their phones down, the word everyone reaches for is addiction. But the apps on those phones are built by teams whose whole job is to keep them scrolling. This workshop starts by taking that blame off, so students can see what’s happening to their attention, and why.</p>
+
+        <div class="actions">
+          <a class="btn" href="#contact">Bring the workshop to your institute</a>
+          <a class="text-link" href="#misunderstood">Why it’s misunderstood</a>
+        </div>
+        <p class="for-line">An interactive workshop for students aged 14 to 20. So far: 8 workshops and more than 300 students, at institutes in Bangalore and Delhi NCR.</p>
+      </div>
+    </div>
+
+    <!-- ============ WHY IT'S MISUNDERSTOOD ============ -->
+    <section id="misunderstood" aria-labelledby="misunderstood-title">
+      <div class="wrap">
+        <h2 id="misunderstood-title">What you hear, and what’s really going on</h2>
+        <p class="intro">Close to nine in ten Indian teenagers aged 14 to 16 have a smartphone at home, and about three in four use one for social media. Teachers hear the same complaints from parents and students every week, and each one quietly ends with the same verdict. Here’s what sits underneath.</p>
+
+        <div class="reframes">
+          <article class="reframe">
+            <div>
+              <p class="complaint">He’s always on his phone. He’s addicted.</p>
+              <span class="correction">The app was built for “always.”</span>
+            </div>
+            <div class="why">
+              <p>Most apps are free because they earn from advertising, so every extra minute a student spends on them is revenue. Endless feeds, autoplay, streaks and red notification dots are designed so there’s never a natural place to stop.</p>
+              <p>On one side is a 15-year-old at 11 at night with a test the next day. On the other is a team of engineers. It was never a fair fight.</p>
+            </div>
+          </article>
+
+          <article class="reframe">
+            <div>
+              <p class="complaint">She studies for hours, but nothing stays.</p>
+              <span class="correction">Not weak memory. Constant switching.</span>
+            </div>
+            <div class="why">
+              <p>The brain doesn’t multitask; it switches, and every switch costs something. Research by Gloria Mark at UC Irvine found that attention on a single screen now lasts about 47 seconds on average, and getting fully back to a task after an interruption can take around 25 minutes.</p>
+              <p>What never gets properly stored can’t be recalled in the exam hall.</p>
+            </div>
+          </article>
+
+          <article class="reframe">
+            <div>
+              <p class="complaint">He just can’t focus anymore.</p>
+              <span class="correction">Focus isn’t a trait. It’s a condition.</span>
+            </div>
+            <div class="why">
+              <p>The same student who can’t study for twenty minutes on a Sunday will study for five hours the night before an exam. Same brain, same phone. What changed is the setting: a visible finish line, a clear reward, and no shortcut left.</p>
+              <p>Once students understand those conditions, they can start to recreate them.</p>
+            </div>
+          </article>
+
+          <article class="reframe">
+            <div>
+              <p class="complaint">We took the phone away. It didn’t help.</p>
+              <span class="correction">Bans don’t build understanding.</span>
+            </div>
+            <div class="why">
+              <p>Most students have already tried. They’ve uninstalled Instagram, deactivated accounts and set app locks, then reinstalled within a week. Being told no often makes the phone more attractive, and the arguments turn it into a battleground at home.</p>
+              <p>What’s missing isn’t willpower. It’s an understanding of why the pull keeps winning.</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="note sources">Sources: Annual Status of Education Report (ASER) 2024, Pratham; Gloria Mark, <i>Attention Span</i> (2023).</p>
+      </div>
+    </section>
+
+    <!-- ============ THE WORKSHOP ============ -->
+    <section id="workshop" aria-labelledby="workshop-title">
+      <div class="wrap">
+        <h2 id="workshop-title">A workshop students take part in, not one they sit through</h2>
+        <p class="intro">There’s no lecture and no list of rules. Students are guided step by step through games and activities that let them see the game for themselves, and then notice how it plays out in their own day.</p>
+
+        <ol class="steps">
+          <li>
+            <div>
+              <h3>Take the blame off</h3>
+              <p>We start by telling students what few people have: this isn’t their fault. They find out how free apps make money, and why their time is what’s being sold.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>See how the game works</h3>
+              <p>A mystery-chit game shows why the next swipe always feels like it might be the good one. Then teams design their own app to keep students hooked, and discover they already know every trick.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Feel what switching costs</h3>
+              <p>A two-minute pen-and-paper test lets students feel how much slower the brain gets when it keeps jumping between two things. Most leave seeing their “weak memory” differently.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Name the urge</h3>
+              <p>Every time a student picks up the phone, there’s a reason behind it. Students map their own moments to these reasons.</p>
+              <div class="urges">
+                <ul class="urge-list" aria-label="The reasons students reach for their phones">
+                  <li><button type="button" aria-pressed="false" data-urge="There’s nothing to do, so the phone fills the gap. Every lift ride, queue and loading screen now has a screen in it.">Bored</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="Question 4 isn’t working out, so the brain grabs a reward that’s closer than finishing.">Stuck</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="A buzz, or just the thought: maybe someone replied. Nothing rang, and they checked anyway.">Poked</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="An hour of study, then a ‘break’ that leaves them more tired than before.">Tired</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="Homework done, phone as the prize. The old reward ended with the episode. This one doesn’t end.">Rewarding myself</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="The deadline is next week, so it can wait one more video. Procrastination is avoiding a feeling, not laziness.">Avoiding</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="Notes with a lecture at 2x and WhatsApp open beside it. The brain switches, and every switch costs.">Switching</button></li>
+                  <li><button type="button" aria-pressed="false" data-urge="A fight with a friend, low marks, nerves before a test. Sometimes the phone isn’t about the phone at all.">Feeling something</button></li>
+                </ul>
+                <p class="urge-detail" aria-live="polite"></p>
+                <p class="urge-hint">Select one to see what it looks like.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Pause and notice</h3>
+              <p>Instead of a fix, students leave with a small experiment for the week: catch the reach before the phone is in their hand, name the reason, and come back to what they were doing.</p>
+            </div>
+          </li>
+        </ol>
+
+        <dl class="principles">
+          <div>
+            <dt>Not anti-phone</dt>
+            <dd>Phones aren’t the enemy, and students are never asked to give them up.</dd>
+          </div>
+          <div>
+            <dt>Friendly and free of blame</dt>
+            <dd>Run by a facilitator close enough in age to talk like a friend, sharing observations rather than instructions.</dd>
+          </div>
+          <div>
+            <dt>No arguments at home</dt>
+            <dd>Students are asked to keep what they learn for themselves, not to use it against their parents.</dd>
+          </div>
+          <div>
+            <dt>Built in two parts</dt>
+            <dd>The first session shows how the game works. The second helps students understand their own urges.</dd>
+          </div>
+        </dl>
+
+        <p class="format">Each session runs for about an hour. All it needs is a projector and a little room for group activities.</p>
+      </div>
+    </section>
+
+    <!-- ============ WHO IT'S FOR ============ -->
+    <section id="who" aria-labelledby="who-title">
+      <div class="wrap">
+        <h2 id="who-title">Who it’s for</h2>
+        <p class="intro">The workshop is run at institutes for students aged 14 to 20, and is built around two groups.</p>
+
+        <div class="audiences">
+          <div>
+            <p class="who">Students who got their phone in the last year or so</p>
+            <p>Habits of attention are still forming. A first phone is when those habits set, which makes it the best time to make them visible.</p>
+          </div>
+          <div>
+            <p class="who">Students working towards a goal</p>
+            <p>Board exams, JEE, NEET and other entrance exams ask for long stretches of unbroken focus. These are the students who feel the cost of switching most.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAST WORKSHOPS ============
+         Photos: add images/workshop-1.jpg to workshop-4.jpg (in the same order as below).
+         Any photo that's missing shows a ruled "Photo to come" card. -->
+    <section id="past" aria-labelledby="past-title">
+      <div class="wrap">
+        <h2 id="past-title">Past workshops</h2>
+        <p class="tally">8 workshops so far, and more than 300 students who’ve taken part.</p>
+        <p class="intro">They’ve been run at these institutes in Delhi NCR and Bangalore, with students from class 9 to the first year of engineering.</p>
+
+        <ul class="gallery">
+          <li>
+            <figure class="photo">
+              <div class="frame">
+                <img src="images/workshop-1.jpg" alt="Class 9 and 10 students during the workshop at JDKPS, Delhi NCR" loading="lazy">
+                <div class="missing">Photo to come</div>
+              </div>
+              <figcaption><strong>JDKPS, Delhi NCR</strong>Students of classes 9 and 10</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="photo">
+              <div class="frame">
+                <img src="images/workshop-2.jpg" alt="Class 11 students during the workshop at DAV School, Delhi NCR" loading="lazy">
+                <div class="missing">Photo to come</div>
+              </div>
+              <figcaption><strong>DAV School, Delhi NCR</strong>Students of class 11</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="photo">
+              <div class="frame">
+                <img src="images/workshop-3.jpg" alt="Class 10 and 11 students during the workshop at Catalytic Centre, Bangalore" loading="lazy">
+                <div class="missing">Photo to come</div>
+              </div>
+              <figcaption><strong>Catalytic Centre, Bangalore</strong>Students of classes 10 and 11</figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="photo">
+              <div class="frame">
+                <img src="images/workshop-4.jpg" alt="First-year students during the workshop at Gateway College of Engineering, Delhi NCR" loading="lazy">
+                <div class="missing">Photo to come</div>
+              </div>
+              <figcaption><strong>Gateway College of Engineering, Delhi NCR</strong>First-year students</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 id="about-title">Who runs the workshop</h2>
+        <div class="about">
+          <div class="about-name">
+            <p class="name">Puney Chawla</p>
+            <p class="cred">B.E., BITS Pilani</p>
+            <p><a href="https://www.linkedin.com/in/puney" target="_blank" rel="noopener">Puney on LinkedIn</a></p>
+          </div>
+          <div class="about-text">
+            <p>I studied engineering at BITS Pilani, and I run these workshops because I’ve felt the same pull myself. I’ve uninstalled apps and reinstalled them within days, and kept my phone close in case someone important called. Nobody did.</p>
+            <p>I’m close enough in age to the students to talk with them as a friend rather than lecture them. Each workshop is built from research on attention, from what I’ve noticed in myself, and from what students share in the room.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============
+         Hidden for now. To show it: delete the word `hidden` below and
+         replace the two quotes with real ones. Copy a <blockquote> to add more. -->
+    <section id="voices" aria-labelledby="voices-title" hidden>
+      <div class="wrap">
+        <h2 id="voices-title">What people said</h2>
+        <div class="quotes">
+          <blockquote>
+            <p>Quote from a student, teacher or principal goes here.</p>
+            <footer>Name, role, institute</footer>
+          </blockquote>
+          <blockquote>
+            <p>Quote from a student, teacher or principal goes here.</p>
+            <footer>Name, role, institute</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 id="contact-title">Bring the workshop to your institute</h2>
+        <div class="contact-grid">
+          <div class="contact-aside">
+            <p>Fill in the form with a few details about your institute and the students you have in mind. I’ll reply by email to talk through dates and format.</p>
+            <p class="email-line">Prefer email? Write to <a id="email-link" href="#contact">the address shown here</a>.</p>
+            <p class="note">If the form doesn’t load, <a href="https://docs.google.com/forms/d/e/1FAIpQLSchhhCMrpIh8Ei2g--l2MA9dd1qL79WGA_dVEJ_IyQJMv0pJA/viewform" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+          </div>
+          <div class="form-sheet">
+            <iframe
+              src="https://docs.google.com/forms/d/e/1FAIpQLSchhhCMrpIh8Ei2g--l2MA9dd1qL79WGA_dVEJ_IyQJMv0pJA/viewform?embedded=true"
+              title="Workshop enquiry form"
+              loading="lazy">Loading the form…</iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>The Game Behind the Screen. Workshops on attention for institutes in Bangalore and Delhi NCR, run by Puney Chawla.</p>
+      <span class="signoff" aria-hidden="true">Pause. Notice. Come back.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  /* ===== Contact email, split in two so spam bots can't read it from the page source ===== */
+  const CONFIG = { emailUser: "puneychawla", emailDomain: "gmail.com" };
+
+  // Red pen strikes "addiction" once the fonts are ready, so the line lands on the real word.
+  (function () {
+    const start = () => document.documentElement.classList.add("is-drawn");
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(start);
+      setTimeout(start, 1500);
+    } else { start(); }
+  })();
+
+  // Email address, assembled at runtime.
+  const email = CONFIG.emailUser + "@" + CONFIG.emailDomain;
+  const emailLink = document.getElementById("email-link");
+  emailLink.textContent = email;
+  emailLink.href = "mailto:" + email;
+
+  // Urge chips: one open at a time.
+  (function () {
+    const buttons = document.querySelectorAll(".urge-list button");
+    const detail = document.querySelector(".urge-detail");
+    const hint = document.querySelector(".urge-hint");
+    buttons.forEach(btn => btn.addEventListener("click", () => {
+      const wasOn = btn.getAttribute("aria-pressed") === "true";
+      buttons.forEach(b => b.setAttribute("aria-pressed", "false"));
+      if (wasOn) { detail.textContent = ""; hint.hidden = false; return; }
+      btn.setAttribute("aria-pressed", "true");
+      detail.textContent = btn.dataset.urge;
+      hint.hidden = true;
+    }));
+  })();
+
+  // Photos: the "Photo to come" card stays until the photo file actually loads.
+  document.querySelectorAll(".photo img").forEach(img => {
+    const show = () => img.closest(".photo").classList.add("has-photo");
+    if (img.complete && img.naturalWidth > 0) show();
+    img.addEventListener("load", show);
+  });
+
+</script>
+</body>
+</html>
