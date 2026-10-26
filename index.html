@@ -6,7 +6,7 @@
 <title>The Game Behind the Screen — an attention workshop for students</title>
 <meta name="description" content="An interactive workshop for institutes that takes the blame off students and helps them understand what their phones are doing to their attention. Run by Puney Chawla in Bangalore and Delhi NCR.">
 <meta property="og:title" content="Not phone addiction. Phone habits, built by design.">
-<meta property="og:description" content="An interactive workshop on attention, phones and focus for students aged 14 to 20. 8 workshops and 300+ students so far.">
+<meta property="og:description" content="An interactive workshop on attention, phones and focus for students aged 14 to 20. 10+ workshops and 400+ students so far.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -291,20 +291,36 @@
   }
 
   /* ---------- Past workshops: photos taped into the notebook ---------- */
+  .carousel { margin-top: clamp(32px, 4vw, 52px); }
   .gallery {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(36px, 5vw, 60px) clamp(24px, 4vw, 56px);
-    margin: clamp(44px, 5vw, 64px) 0 0; padding: 0; list-style: none; max-width: 60rem;
+    display: flex; gap: clamp(24px, 3vw, 44px);
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    list-style: none; margin: 0 calc(-1 * clamp(20px, 6vw, 96px)) 0 -10px;
+    padding: 20px clamp(20px, 6vw, 96px) 34px 10px;
+    scroll-padding-left: 10px;
+    scrollbar-width: none;
   }
+  .gallery::-webkit-scrollbar { display: none; }
+  .gallery > li { flex: 0 0 clamp(270px, 33vw, 440px); scroll-snap-align: start; }
+  @media (max-width: 600px) { .gallery > li { flex-basis: 80vw; } }
+  @media (prefers-reduced-motion: reduce) { .gallery { scroll-behavior: auto; } }
+  .car-controls { display: flex; gap: 10px; margin-top: 4px; }
+  .car-btn {
+    width: 44px; height: 44px; border-radius: 999px;
+    border: 1px solid var(--rule-strong); background: #fff; color: var(--ink);
+    display: grid; place-items: center; cursor: pointer;
+  }
+  .car-btn:hover:not(:disabled) { border-color: var(--ink); }
+  .car-btn:disabled { opacity: 0.35; cursor: default; }
   .photo { margin: 0; position: relative; }
   .photo .frame {
     position: relative; background: #fff; padding: 10px 10px 12px;
     box-shadow: 0 1px 0 rgba(30,43,94,.08), 0 10px 24px -14px rgba(30,43,94,.35);
   }
-  .gallery li:nth-child(4n+1) .frame { transform: rotate(-1.3deg); }
-  .gallery li:nth-child(4n+2) .frame { transform: rotate(0.9deg); }
-  .gallery li:nth-child(4n+3) .frame { transform: rotate(0.6deg); }
-  .gallery li:nth-child(4n)   .frame { transform: rotate(-0.8deg); }
+  .gallery li:nth-child(3n+1) .frame { transform: rotate(-1.2deg); }
+  .gallery li:nth-child(3n+2) .frame { transform: rotate(0.9deg); }
+  .gallery li:nth-child(3n)   .frame { transform: rotate(-0.5deg); }
   .photo .frame::before {
     content: ""; position: absolute; top: -11px; left: 50%; width: 84px; height: 24px;
     transform: translateX(-50%) rotate(-3deg); background: var(--tape);
@@ -322,7 +338,6 @@
   .photo.has-photo .missing { display: none; }
   .photo figcaption { margin-top: 14px; font-size: 0.95rem; line-height: 1.4; color: var(--ink-soft); max-width: 24rem; }
   .photo figcaption strong { display: block; color: var(--ink); font-weight: 600; }
-  @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
 
   /* ---------- Testimonials (hidden until you add some) ---------- */
   .quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px clamp(32px, 6vw, 96px); margin-top: 40px; max-width: 62rem; }
@@ -415,7 +430,7 @@
           <a class="btn" href="#contact">Bring the workshop to your institute</a>
           <a class="text-link" href="#misunderstood">Why it’s misunderstood</a>
         </div>
-        <p class="for-line">An interactive workshop for students aged 14 to 20. So far: 8 workshops and more than 300 students, at institutes in Bangalore and Delhi NCR.</p>
+        <p class="for-line">An interactive workshop for students aged 14 to 20. So far: more than 10 workshops and 400 students, at institutes in Bangalore and Delhi NCR.</p>
       </div>
     </div>
 
@@ -571,16 +586,18 @@
     </section>
 
     <!-- ============ PAST WORKSHOPS ============
-         Photos: add images/workshop-1.jpg to workshop-4.jpg (in the same order as below).
+         Photos: add images/workshop-1.jpg, workshop-2.jpg and so on (in the same order as below).
+         To add a workshop, copy one whole <li>…</li> and change the photo name, caption and "1 of 5" labels.
          Any photo that's missing shows a ruled "Photo to come" card. -->
     <section id="past" aria-labelledby="past-title">
       <div class="wrap">
         <h2 id="past-title">Past workshops</h2>
-        <p class="tally">8 workshops so far, and more than 300 students who’ve taken part.</p>
+        <p class="tally">More than 10 workshops so far, and over 400 students who’ve taken part.</p>
         <p class="intro">They’ve been run at these institutes in Delhi NCR and Bangalore, with students from class 9 to the first year of engineering.</p>
 
-        <ul class="gallery">
-          <li>
+        <div class="carousel" aria-roledescription="carousel" aria-label="Photos from past workshops">
+        <ul class="gallery" tabindex="0">
+          <li aria-roledescription="slide" aria-label="1 of 5">
             <figure class="photo">
               <div class="frame">
                 <img src="images/workshop-1.jpg" alt="Class 9 and 10 students during the workshop at JDKPS, Delhi NCR" loading="lazy">
@@ -589,7 +606,7 @@
               <figcaption><strong>JDKPS, Delhi NCR</strong>Students of classes 9 and 10</figcaption>
             </figure>
           </li>
-          <li>
+          <li aria-roledescription="slide" aria-label="2 of 5">
             <figure class="photo">
               <div class="frame">
                 <img src="images/workshop-2.jpg" alt="Class 11 students during the workshop at DAV School, Delhi NCR" loading="lazy">
@@ -598,7 +615,7 @@
               <figcaption><strong>DAV School, Delhi NCR</strong>Students of class 11</figcaption>
             </figure>
           </li>
-          <li>
+          <li aria-roledescription="slide" aria-label="3 of 5">
             <figure class="photo">
               <div class="frame">
                 <img src="images/workshop-3.jpg" alt="Class 10 and 11 students during the workshop at Catalytic Centre, Bangalore" loading="lazy">
@@ -607,7 +624,7 @@
               <figcaption><strong>Catalytic Centre, Bangalore</strong>Students of classes 10 and 11</figcaption>
             </figure>
           </li>
-          <li>
+          <li aria-roledescription="slide" aria-label="4 of 5">
             <figure class="photo">
               <div class="frame">
                 <img src="images/workshop-4.jpg" alt="First-year students during the workshop at Gateway College of Engineering, Delhi NCR" loading="lazy">
@@ -616,7 +633,25 @@
               <figcaption><strong>Gateway College of Engineering, Delhi NCR</strong>First-year students</figcaption>
             </figure>
           </li>
+          <li aria-roledescription="slide" aria-label="5 of 5">
+            <figure class="photo">
+              <div class="frame">
+                <img src="images/workshop-5.jpg" alt="Class 12 students during the workshop at Medi-JEE, Delhi NCR" loading="lazy">
+                <div class="missing">Photo to come</div>
+              </div>
+              <figcaption><strong>Medi-JEE, Delhi NCR</strong>Students of class 12</figcaption>
+            </figure>
+          </li>
         </ul>
+        <div class="car-controls">
+          <button type="button" class="car-btn" data-dir="-1" aria-label="Previous workshop">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3.5 5.5 9l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="car-btn" data-dir="1" aria-label="Next workshop">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M7 3.5 12.5 9 7 14.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        </div>
       </div>
     </section>
 
@@ -718,6 +753,28 @@
       detail.textContent = btn.dataset.urge;
       hint.hidden = true;
     }));
+  })();
+
+
+  // Past workshops carousel: buttons move one photo at a time; swipe and arrow keys also work.
+  (function () {
+    const track = document.querySelector(".gallery");
+    const [prev, next] = document.querySelectorAll(".car-btn");
+    const items = [...track.children];
+    const pos = i => items[i].offsetLeft - items[0].offsetLeft;
+    const current = () => items.reduce((best, _, i) =>
+      Math.abs(pos(i) - track.scrollLeft) < Math.abs(pos(best) - track.scrollLeft) ? i : best, 0);
+    const update = () => {
+      prev.disabled = track.scrollLeft <= 4;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    };
+    [prev, next].forEach(btn => btn.addEventListener("click", () => {
+      const target = Math.max(0, Math.min(items.length - 1, current() + Number(btn.dataset.dir)));
+      track.scrollTo({ left: pos(target) });
+    }));
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
   })();
 
   // Photos: the "Photo to come" card stays until the photo file actually loads.
